@@ -441,6 +441,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     bus = best_bus;
                     loaded_config = Some(config);
 }
+                    let ix_mine = get_mine_ix(signer.pubkey(), solution, bus);
                     ixs.push(ix_mine);
                     info!("开始提交难度：{}.", difficulty);
                     if let Ok((hash, _slot)) = rpc_client.get_latest_blockhash_with_commitment(rpc_client.commitment()).await {
