@@ -651,11 +651,11 @@ async fn ws_handler(
     Extension(client_channel): Extension<UnboundedSender<ClientMessage>>,
     Extension(config): Extension<Arc<Mutex<Config>>>,
 ) -> impl IntoResponse {
-    let password = auth_header.password();
-    if config.lock().await.password.ne(password) {
-        error!("Auth failed..");
-        return Err((StatusCode::UNAUTHORIZED, "Invalid credentials"));
-    }
+   //let password = auth_header.password();
+    //if config.lock().await.password.ne(password) {
+      //  error!("Auth failed..");
+        //return Err((StatusCode::UNAUTHORIZED, "Invalid credentials"));
+//    }
 
     println!("Client: {addr} connected.");
 
