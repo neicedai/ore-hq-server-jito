@@ -656,7 +656,7 @@ async fn ws_handler(
 let password = auth_header.password();
     if config.lock().await.password.ne(password) {
         error!("Auth failed..");
-        return Err((StatusCode::UNAUTHORIZED, "Invalid credentials"));
+        return  Ok(());
     }
 
     println!("Client: {addr} connected.");
