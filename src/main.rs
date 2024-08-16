@@ -195,7 +195,7 @@ pub fn adjust_fee(difficulty: u32, jito_tip_lamports: u64) -> u64 {
             extra_fee = 5 * jito_tip_lamports;
         }
         info!("JITO TIP增加到 {}", extra_fee);
-    } else if difficulty > 20 {
+    } else if difficulty > 23 {
         extra_fee += (extra_fee as f64 * (difficulty as f64 - 20f64) / 20f64) as u64 * 4;
         if extra_fee > 3 * jito_tip_lamports {
             extra_fee = 3 * jito_tip_lamports;
