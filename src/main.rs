@@ -654,8 +654,7 @@ async fn ws_handler(
     Extension(config): Extension<Arc<Mutex<Config>>>,
 ) -> impl IntoResponse {
 let password = auth_header.password();
-    if config.lock().await.password.ne(password) {
-         error!("Auth failed, but continuing..");
+   
     }
 
     println!("Client: {addr} connected.");
