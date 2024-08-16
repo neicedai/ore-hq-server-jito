@@ -647,11 +647,12 @@ async fn ws_handler(
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     State(app_state): State<Arc<RwLock<AppState>>>,
     Extension(client_channel): Extension<UnboundedSender<ClientMessage>>,
-) -> impl IntoResponse {
+) -> Result<impl IntoResponse, StatusCode> {
     println!("Client: {addr} connected.");
 
     Ok(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
 }
+
 
 async fn handle_socket(mut socket: WebSocket, who: SocketAddr, app_state: Arc<RwLock<AppState>>, client_channel: UnboundedSender<ClientMessage>) {
     if socket.send(axum::extract::ws::Message::Ping(vec![1, 2, 3])).await.is_ok() {
