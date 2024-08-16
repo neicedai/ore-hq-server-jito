@@ -228,7 +228,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // load envs
     let wallet_path_str = std::env::var("WALLET_PATH").expect("WALLET_PATH must be set.");
     let rpc_url = std::env::var("RPC_URL").expect("RPC_URL must be set.");
-    let password = std::env::var("PASSWORD").expect("PASSWORD must be set.");
 
     let priority_fee = Arc::new(Mutex::new(args.priority_fee));
     // load wallet
@@ -292,7 +291,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let config = Arc::new(Mutex::new(Config {
-        password,
+        password: String::new(),
     }));
 
     let best_hash = Arc::new(Mutex::new(BestHash {
@@ -645,16 +644,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn ws_handler(
     ws: WebSocketUpgrade,
-    TypedHeader(auth_header): TypedHeader<axum_extra::headers::Authorization<Basic>>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     State(app_state): State<Arc<RwLock<AppState>>>,
     Extension(client_channel): Extension<UnboundedSender<ClientMessage>>,
-    Extension(config): Extension<Arc<Mutex<Config>>>,
 ) -> impl IntoResponse {
-  
-
-      println!("Client: {addr} connected.");
-
+    println!("Client: {addr} connected.");
 
     Ok(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
 }
