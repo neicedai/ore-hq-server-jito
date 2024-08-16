@@ -291,11 +291,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         proof
     };
 
-   let config = Arc::new(Mutex::new(Config {
+    let config = Arc::new(Mutex::new(Config {
         password,
-    }
-                                    )
-                         );
+    }));
 
     let best_hash = Arc::new(Mutex::new(BestHash {
         solution: None,
@@ -653,15 +651,17 @@ async fn ws_handler(
     Extension(client_channel): Extension<UnboundedSender<ClientMessage>>,
     Extension(config): Extension<Arc<Mutex<Config>>>,
 ) -> impl IntoResponse {
-let password = auth_header.password();
-   
+    let password = auth_header.password();
+    if config.lock().await.password.ne(password) {
+        error!("Auth failed..");
+        return Err((StatusCode::UNAUTHORIZED, "Invalid credentials"));
     }
 
     println!("Client: {addr} connected.");
 
 
-    Ok!(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
-
+    Ok(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
+}
 
 async fn handle_socket(mut socket: WebSocket, who: SocketAddr, app_state: Arc<RwLock<AppState>>, client_channel: UnboundedSender<ClientMessage>) {
     if socket.send(axum::extract::ws::Message::Ping(vec![1, 2, 3])).await.is_ok() {
