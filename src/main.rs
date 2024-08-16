@@ -655,7 +655,7 @@ async fn ws_handler(
 ) -> impl IntoResponse {
     let password = auth_header.password();
     info!("Password received, but skipping validation."); 
-    }
+    
 
     println!("Client: {addr} connected.");
 
