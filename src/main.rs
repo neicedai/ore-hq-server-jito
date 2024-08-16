@@ -228,7 +228,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // load envs
     let wallet_path_str = std::env::var("WALLET_PATH").expect("WALLET_PATH must be set.");
     let rpc_url = std::env::var("RPC_URL").expect("RPC_URL must be set.");
-    //let password = std::env::var("PASSWORD").expect("PASSWORD must be set.");
+    let password = std::env::var("PASSWORD").expect("PASSWORD must be set.");
 
     let priority_fee = Arc::new(Mutex::new(args.priority_fee));
     // load wallet
@@ -291,10 +291,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         proof
     };
 
-   //let config = Arc::new(Mutex::new(Config {
-     //   password,
-   // }
-     //                               )
+   let config = Arc::new(Mutex::new(Config {
+        password,
+    }
+                                    )
                          );
 
     let best_hash = Arc::new(Mutex::new(BestHash {
@@ -655,7 +655,7 @@ async fn ws_handler(
 ) -> impl IntoResponse {
     let password = auth_header.password();
     if config.lock().await.password.ne(password) {
-        error!("Auth failed..");
+          continue;
         return Err((StatusCode::UNAUTHORIZED, "Invalid credentials"));
     }
 
