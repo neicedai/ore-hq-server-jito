@@ -291,9 +291,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         proof
     };
 
-    let config = Arc::new(Mutex::new(Config {
-        password,
-    }));
+   //let config = Arc::new(Mutex::new(Config {
+     //   password,
+   // }
+     //                               )
+                         );
 
     let best_hash = Arc::new(Mutex::new(BestHash {
         solution: None,
