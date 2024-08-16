@@ -660,7 +660,7 @@ let password = auth_header.password();
     println!("Client: {addr} connected.");
 
 
-    Ok(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
+    Ok!(ws.on_upgrade(move |socket| handle_socket(socket, addr, app_state, client_channel)))
 
 
 async fn handle_socket(mut socket: WebSocket, who: SocketAddr, app_state: Arc<RwLock<AppState>>, client_channel: UnboundedSender<ClientMessage>) {
