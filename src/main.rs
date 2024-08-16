@@ -443,18 +443,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                     // TODO: choose the highest balance bus
                     // TODO: Choose a bus
-let mut bus = rand::thread_rng().gen_range(0..BUS_COUNT);
-let mut loaded_config = None;
-if let (Ok(_), Ok(config), Ok(busses)) = get_proof_and_config_with_busses(&rpc_client, signer.pubkey()).await {
-    let mut best_bus = 0;
-    for (i, bus) in busses.iter().enumerate() {
-        if let Ok(bus) = bus {
-            if bus.rewards > busses[best_bus].unwrap().rewards {
-                best_bus = i;
+                    let mut bus = rand::thread_rng().gen_range(0..BUS_COUNT);
+                    let mut loaded_config = None;
+                    if let (Ok(_), Ok(config), Ok(busses)) = get_proof_and_config_with_busses(&rpc_client, signer.pubkey()).await {
+                    let mut best_bus = 0;
+                    for (i, bus) in busses.iter().enumerate() {
+                    if let Ok(bus) = bus {
+                    if bus.rewards > busses[best_bus].unwrap().rewards {
+                    best_bus = i;
             }
         }
     }
-    bus = best_bus;
+                    bus = best_bus;
 }
 
                     let difficulty = solution.to_hash().difficulty();
