@@ -423,7 +423,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     let difficulty = solution.to_hash().difficulty();
 
                     ixs.push(build_bribe_ix(&app_wallet.pubkey(), adjust_fee(difficulty, jito_tip_lamports)));
-                    if difficulty < 22 {
+                    if difficulty < 23 {
                         info!("JITO TIP: {} ", jito_tip_lamports);
                     }
 
