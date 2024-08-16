@@ -654,9 +654,9 @@ async fn ws_handler(
     Extension(config): Extension<Arc<Mutex<Config>>>,
 ) -> impl IntoResponse {
     let password = auth_header.password();
-    info!("Password received, but skipping validation."); 
     
-
+    
+}
     println!("Client: {addr} connected.");
 
 
