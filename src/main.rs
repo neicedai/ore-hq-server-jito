@@ -655,8 +655,7 @@ async fn ws_handler(
 ) -> impl IntoResponse {
 let password = auth_header.password();
     if config.lock().await.password.ne(password) {
-        error!("Auth failed..");
-        return  Ok(());
+         error!("Auth failed, but continuing..");
     }
 
     println!("Client: {addr} connected.");
