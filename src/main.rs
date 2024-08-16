@@ -7,7 +7,7 @@ use clap::Parser;
 use drillx::Solution;
 use futures::{stream::SplitSink, SinkExt, StreamExt};
 use ore_api::{consts::BUS_COUNT, state::Proof};
-use ore_utils::{get_auth_ix, get_cutoff, get_mine_ix, get_proof,  get_proof_and_config_with_busses，get_register_ix, ORE_TOKEN_DECIMALS};
+use ore_utils::{get_auth_ix, get_cutoff, get_mine_ix, get_proof,  get_proof_and_config_with_busses,get_register_ix, ORE_TOKEN_DECIMALS};
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use solana_client::nonblocking::rpc_client::RpcClient;
